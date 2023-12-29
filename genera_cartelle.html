@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            td{
+                border: 1px solid;
+                height: 30px;
+                width: 103px;
+                z-index: 10;
+            }
+            .modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                justify-content: center;
+                align-items: center;
+            }
+    
+            .modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+            }
+
+            .cornice{
+                display: none;
+                border: 5px solid;
+                position: absolute;
+                top: 58px;
+                left: 32px;
+                width: 450px;
+                height: 606px;
+            }
+            .rombo {
+                display: none;
+                position: absolute;
+                border: 5px solid;
+                width: 200px;
+                top: 260px;
+                left: 158px;
+                height: 200px;
+                -moz-transform:rotate(45deg) skew(10deg, 10deg);
+                -webkit-transform:rotate(45deg) skew(10deg, 10deg);
+                -ms-transform:rotate(45deg) skew(10deg, 10deg);
+                -o-transform:rotate(45deg) skew(10deg, 10deg);
+                transform:rotate(45deg) skew(10deg, 10deg);
+            }
+            .diag1{
+                display: none;
+                position: absolute;
+                border-bottom: 5px solid;
+                transform: rotate(53.3deg);
+                width: 759px;
+                top: 363px;
+                left: -118px;
+            }
+            .diag2{
+                display: none;
+                position: absolute;
+                border-bottom: 5px solid;
+                transform: rotate(-53.3deg);
+                width: 759px;
+                top: 363px;
+                left: -118px;
+            }
+
+            .istruzioni{
+                position: absolute;
+                left: 1000px;
+                top: 200px;
+            }
+
+            @media (max-width: 450px){
+                .cornice{
+                    height: 303px;
+    top: 34px;
+    width: 223px;
+    left: 20px;
+    border: 3px solid;
+                }
+                .rombo{
+                    top: 135px;
+    height: 100px;
+    width: 100px;
+    left: 81px;
+    border: 3px solid;
+                }
+                .diag1{
+                    width: 375px;
+                    left: -54px;
+                    top: 188px;
+                    border-bottom: 3px solid;
+                    transform: rotate(53.3deg);
+                }
+                .diag2{
+                    width: 375px;
+                    left: -54px;
+                    top: 188px;
+                    border-bottom: 3px solid;
+                    transform: rotate(-53.3deg);
+                }
+                img{
+                    width: 36px;
+                }
+                table{
+                    width: 264px;
+                }
+            }
+        </style>
+        <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    </head>
+    <body>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <label for="selectChoice">Scegli un'opzione:</label>
+                <p id="cont"></p>
+                <select tabindex="20" id="selectChoice">
+                    <option value="1B">1B</option>
+                    <option value="1D">1D</option>
+                    <option value="1C">1C</option>
+                    <option value="1S">1S</option>
+                    <option value="2B">2B</option>
+                    <option value="2D">2D</option>
+                    <option value="2C">2C</option>
+                    <option value="2S">2S</option>
+                    <option value="3B">3B</option>
+                    <option value="3D">3D</option>
+                    <option value="3C">3C</option>
+                    <option value="3S">3S</option>
+                    <option value="4B">4B</option>
+                    <option value="4D">4D</option>
+                    <option value="4C">4C</option>
+                    <option value="4S">4S</option>
+                    <option value="5B">5B</option>
+                    <option value="5D">5D</option>
+                    <option value="5C">5C</option>
+                    <option value="5S">5S</option>
+                    <option value="6B">6B</option>
+                    <option value="6D">6D</option>
+                    <option value="6C">6C</option>
+                    <option value="6S">6S</option>
+                    <option value="7B">7B</option>
+                    <option value="7D">7D</option>
+                    <option value="7C">7C</option>
+                    <option value="7S">7S</option>
+                    <option value="8B">8B</option>
+                    <option value="8D">8D</option>
+                    <option value="8C">8C</option>
+                    <option value="8S">8S</option>
+                    <option value="9B">9B</option>
+                    <option value="9D">9D</option>
+                    <option value="9C">9C</option>
+                    <option value="9S">9S</option>
+                    <option value="10B">10B</option>
+                    <option value="10D">10D</option>
+                    <option value="10C">10C</option>
+                    <option value="10S">10S</option>
+                </select>
+                <br>
+                <button onclick="inserisci()">Conferma</button>
+            </div>
+        </div>
+        <div id="screen" style="width:fit-content">
+        <div class="cornice"></div>
+        <div class="rombo"></div>
+        <div class="diag1"></div>
+        <div class="diag2"></div>
+        <table>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+        </div>
+        <button onclick="pulisci()" style="top:15px; position:relative">Pulisci</button>
+        <button onclick="genera_cartella()" style="top:15px; position:relative">Cartella casuale</button>
+        <button onclick="salvaComePNG()" style="top:15px; position:relative">Salva cartella</button>
+        <div class="">
+            <h1>SCARICA UNA CARTELLA DEL GIOCO ORIGINALE</h1>
+            <h4>Cliccando questa voce verrà scaricata la cartella.</h4>
+
+            <select id="cartella_esistente">
+                <option value="1">1 Denara</option>
+                <option value="2">2 Denara</option>
+                <option value="3">3 Denara</option>
+                <option value="4">4 Denara</option>
+                <option value="5">5 Denara</option>
+                <option value="6">6 Denara</option>
+                <option value="7">7 Denara</option>
+                <option value="8">8 Denara</option>
+                <option value="9">9 Denara</option>
+                <option value="10">10 Denara</option>
+            </select>
+            <button onclick="scarica_selezionata()">Scarica selezionata</button>
+        </div>
+        <script>
+            //ZOOM 90%
+            var cards = document.getElementsByTagName('td');
+            var modal = document.getElementById('myModal');
+            var selectChoice = document.getElementById('selectChoice');
+            var usciti=[]
+
+    // Aggiungi l'evento onclick a ciascun elemento
+    for(i=0;i<cards.length;i++){
+        cards[i].setAttribute("onclick","openModal("+i+")")
+    }
+    function openModal(id) {
+        document.getElementById('cont').innerHTML=id;
+        modal.style.display = 'flex';
+    }
+
+    // Funzione per chiudere il modal
+    function inserisci() {
+        modal.style.display = 'none';
+        id=document.getElementById('cont').innerHTML;
+        img=selectChoice.value
+        cards[parseInt(id)].innerHTML="<img src='./Carte napoletane/"+img+".jpg'>";
+    }
+    function inserisci_auto(elem,img) {
+        cards[parseInt(elem)].innerHTML="<img crossorigin='anonymous' src='./Carte napoletane/"+img+".jpg'>";
+    }
+    function pulisci(){
+        cornice=document.getElementsByClassName('cornice')
+        cornice=cornice[0]
+        rombo=document.getElementsByClassName('rombo')
+        rombo=rombo[0]
+        diag1=document.getElementsByClassName('diag1')
+        diag1=diag1[0]
+        diag2=document.getElementsByClassName('diag2')
+        diag2=diag2[0]
+        td=document.getElementsByTagName('td')
+        for(i=0;i<td.length;i++){
+            td[i].style.border="none"
+        }
+        cornice.style.display="block"
+        rombo.style.display="block"
+        diag1.style.display="block"
+        diag2.style.display="block"
+    }
+    function sorteggia_carta(){
+        let semi=['B','C','D','S']
+        let numeroCasuale = Math.floor(Math.random() * 10) + 1;
+        let semeCasuale = Math.floor(Math.random() * 4);
+        let carta=numeroCasuale+semi[semeCasuale]
+        return carta
+    }
+
+    function genera_cartella(){
+        usciti=[]
+        for (i=0;i<25;i++){
+            let current_card=sorteggia_carta();
+            if(usciti.includes(current_card)){
+                i--;
+            }
+            else{
+                usciti.push(current_card)
+                inserisci_auto(i,current_card);
+            }
+        }
+        pulisci()
+    }
+    function salvaComePNG() {
+        // Ottieni l'elemento da convertire in un'immagine
+        const nodoDaConvertire = document.getElementById("screen");
+  
+        // Utilizza html2canvas per convertire l'elemento in un'immagine
+        html2canvas(nodoDaConvertire).then(function(canvas) {
+          // Crea un'ancora (link) per il download dell'immagine
+          const link = document.createElement('a');
+          link.download = 'cartella_'+usciti[12]+'.png';
+  
+          // Converti il canvas in un URL di dati
+          const dataURL = canvas.toDataURL('image/png');
+  
+          // Imposta l'URL come href dell'ancora
+          link.href = dataURL;
+  
+          // Aggiungi l'ancora al documento
+          document.body.appendChild(link);
+  
+          // Simula il clic sull'ancora per avviare il download
+          link.click();
+  
+          // Rimuovi l'ancora dal documento
+          document.body.removeChild(link);
+        });
+    }
+    function scarica_selezionata() {
+        // Ottenere l'elemento <img> dal DOM
+        // Creare un elemento <a> per scaricare l'immagine
+        var link = document.createElement('a');
+        link.href = "./cartella_"+document.getElementById('cartella_esistente').value+".png";
+        link.download = "cartella_"+document.getElementById('cartella_esistente').value+".png";
+
+        // Aggiungere l'elemento <a> al DOM
+        document.body.appendChild(link);
+
+        // Simulare il clic sull'elemento <a> per avviare il download
+        link.click();
+
+        // Rimuovere l'elemento <a> dal DOM
+        document.body.removeChild(link);
+    }
+        </script>
+    </body>
+</html>
